@@ -6,71 +6,39 @@
 
 using namespace std;
 
+
 int main(int argc, char *argv[]) {
 	//Construct GUI
 	GUI gui;
+	//you will need the following lines somewhere in your code!
 
-	string wordToDisplay;
-	//Keep looping until "quit" entered!
-	while (wordToDisplay != "quit")
-	{
-		cout << "What word do you want to display: ";
-		cin >> wordToDisplay;
+	//Use at the beginning of the frame to time how long the frame takes to process.
+	gui.startTimer();
 
-		RGB wordColor;
-		vector2D wordPosition{ 0,0 };
-		vector2D direction{ 2,1 };
-		int currentFrame{ 0 };
+	//gets the dimensions of the current word being displayed
+	//NOTE:: x is width, y is height!
+	gui.getDimensions().x;
+	gui.getDimensions().y;
 
-		if (wordToDisplay != "quit")
-		{
-			for (int red = maxColors; red > 0; red -= colorJump)
-			{
-				for (int green = maxColors; green > 0; green -= colorJump)
-				{
-					for (int blue = maxColors; blue > 0; blue -= colorJump)
-					{
-						gui.startTimer();
+	//displays the word on the scren. Parameters are:
+		//vector2D struct which I named wordPosition
+		//RGB struct which I named wordColor
+		//string which I named wordToDisplay
+	vector2D wordPosition{ 0,0 };
+	wordPosition.x = 3;
+	RGB wordColor;
+	wordColor.B = maxColors;
+	wordColor.G = maxColors;
+	wordColor.R = maxColors;
+	wordColor.B -= colorJump;
+	wordColor.B = wordColor.B - colorJump;
+	gui.displayWord(wordPosition, wordColor, wordToDisplay);
 
-						wordColor.R = red;
-						wordColor.G = green;
-						wordColor.B = blue;
+	//Use at the end of a frame to pause for the proper length of time!
+	gui.delay();
 
-
-						gui.displayWord(wordPosition, wordColor, wordToDisplay);
-						wordPosition.x += direction.x;
-						wordPosition.y += direction.y;
-
-
-						if (wordPosition.x < 0)
-						{
-							direction.x *= -1;
-							wordPosition.x = 0;
-						}
-						if (wordPosition.x + gui.getDimensions().x > screenWidth)
-						{
-							direction.x *= -1;
-							wordPosition.x = screenWidth - gui.getDimensions().x;
-						}
-
-						if (wordPosition.y < 0)
-						{
-							direction.y *= -1;
-							wordPosition.y = 0;
-						}
-						if (wordPosition.y + gui.getDimensions().y > screenHeight)
-						{
-							direction.y *= -1;
-							wordPosition.y = screenHeight - gui.getDimensions().y;
-						}
-
-						gui.delay();
-					}
-				}
-			}
-		}
-	}
 
 	return 0;
 
 }
+
